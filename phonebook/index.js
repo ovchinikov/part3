@@ -75,6 +75,27 @@ app.post("/api/persons", (req, res) => {
     number: body.number,
   };
 
-  const persons = data.concat(person);
-  res.json(persons);
+  const name = data.find((data) => data.name === body.name);
+  const number = data.find((data) => data.number === body.number);
+
+  if (!body.name || !body.number) {
+    return res.status(400).json({
+      error: "content missing",
+    });
+  }
+
+  if (name) {
+    return res.status(400).json({
+      error: "name must be unique",
+    });
+  }
+
+  if (number) {
+    return res.status(400).json({
+      error: "number must be unique",
+    });
+  }
+
+  data.concat(person);
+  res.json(person);
 });
