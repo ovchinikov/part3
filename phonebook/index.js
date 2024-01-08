@@ -51,3 +51,11 @@ app.get("/api/persons/:id", (req, res) => {
   }
   res.status(404).json({ message: "404 not found" });
 });
+
+// delete resource
+
+app.delete("/api/persons/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const person = data.find((data) => data.id === id);
+  res.json({ person, message: "Removed person successfully" });
+});
