@@ -5,6 +5,8 @@ const port = 3000;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
+app.use(express.json());
+
 const data = [
   {
     id: 1,
@@ -30,4 +32,10 @@ const data = [
 
 app.get("/api/persons", (req, res) => {
   res.json(data);
+});
+
+app.get("/info", (req, res) => {
+  const count = data.length;
+  const now = new Date().toUTCString();
+  res.send(`<p>Phonebook has info for ${count} people </br> ${now} </p>`);
 });
