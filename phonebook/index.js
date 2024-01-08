@@ -1,7 +1,9 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 const app = express();
-const port = 3000;
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
@@ -12,7 +14,8 @@ app.use(
     ":method :url :status :date :res[content-length] - :response-time ms :body"
   )
 );
-
+app.use(cors());
+app.use(express.static("dist"));
 app.use(express.json());
 
 const data = [
