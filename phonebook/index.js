@@ -1,9 +1,17 @@
 import express from "express";
-
+import morgan from "morgan";
 const app = express();
 const port = 3000;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+morgan.token("body", (req, res) => JSON.stringify(req.body));
+
+app.use(
+  morgan(
+    ":method :url :status :date :res[content-length] - :response-time ms :body"
+  )
+);
 
 app.use(express.json());
 

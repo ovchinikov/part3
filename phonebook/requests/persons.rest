@@ -13,9 +13,11 @@ GET http://localhost:3000/api/persons/1
 GET http://localhost:3000/api/persons
 
 ###
+
 POST http://localhost:3000/api/persons
-Content-Type:application/json
+Content-Type: application/json
+
 {
-    "name": "Art2 Hellas",
-    "number": "040-123456"
+    "name": "Kamau",
+    "number": "040-1234500"
 }
