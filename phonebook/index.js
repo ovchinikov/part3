@@ -59,3 +59,22 @@ app.delete("/api/persons/:id", (req, res) => {
   const person = data.find((data) => data.id === id);
   res.json({ person, message: "Removed person successfully" });
 });
+
+// create new contact
+
+const generateId = () => {
+  return Math.floor(Math.random() * 10000);
+};
+
+app.post("/api/persons", (req, res) => {
+  const body = req.body;
+
+  const person = {
+    id: generateId(),
+    name: body.name,
+    number: body.number,
+  };
+
+  const persons = data.concat(person);
+  res.json(persons);
+});
