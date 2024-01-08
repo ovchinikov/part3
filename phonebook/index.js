@@ -29,13 +29,25 @@ const data = [
     number: "39-23-6423122",
   },
 ];
-
+// get all persons
 app.get("/api/persons", (req, res) => {
   res.json(data);
 });
 
+// display info about the phonebook status
 app.get("/info", (req, res) => {
   const count = data.length;
   const now = new Date().toUTCString();
   res.send(`<p>Phonebook has info for ${count} people </br> ${now} </p>`);
+});
+
+// get a single person
+
+app.get("/api/persons/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const person = data.find((data) => data.id === id);
+  if (person) {
+    res.json(person);
+  }
+  res.status(404).json({ message: "404 not found" });
 });
