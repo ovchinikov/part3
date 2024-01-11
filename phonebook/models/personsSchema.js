@@ -1,34 +1,38 @@
-const { mongoose } = require("mongoose");
-require("dotenv").config();
+/* eslint-disable no-console */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-param-reassign */
+const { mongoose } = require('mongoose');
+require('dotenv').config();
+
 const url = process.env.MONGO_URI;
-console.log(url);
-mongoose.set("strictQuery", false);
+
+mongoose.set('strictQuery', false);
 
 mongoose
   .connect(url)
-  .then((res) => console.log("Connected to Mongodb"))
+  .then((res) => console.log(res))
   .catch((err) => console.error(err));
 
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Name is  required"],
-    minLength: [3, "Name must be at least 3 characters"],
+    required: [true, 'Name is  required'],
+    minLength: [3, 'Name must be at least 3 characters'],
   },
   number: {
     type: String,
     validate: {
-      validator: function (v) {
+      validator(v) {
         return /\d{3}-\d{3}-\d{4}/.test(v);
       },
       message: (props) => `${props.value} is not a valid phone number!`,
     },
-    required: [true, "User phone number required"],
-    unique: [true, "Phone number must be unique"],
+    required: [true, 'User phone number required'],
+    unique: [true, 'Phone number must be unique'],
   },
 });
 
-personSchema.set("toJSON", {
+personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -36,4 +40,4 @@ personSchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Person", personSchema);
+module.exports = mongoose.model('Person', personSchema);
